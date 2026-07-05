@@ -1,0 +1,41 @@
+---
+title: AI Daily — {Month D, YYYY}
+description: { one-line description mentioning the top story }
+digest: daily
+date: { YYYY-MM-DD }
+tags: [{ union of all item tags }]
+itemCount: { n }
+topStory: { title of the highest-scored selected item }
+sidebar:
+  label: { Mon D, YYYY }
+  order: -{YYYYMMDD}
+---
+
+import StoryCard from '../../../components/StoryCard.astro';
+
+{ 1–2 sentence editorial intro for the day — what kind of day it was. }
+
+## Top story
+
+<StoryCard
+	title="{title}"
+	url="{primary url}"
+	category="{category}"
+	source="{concrete source label, e.g. 'OpenAI', 'arXiv'}"
+	tags={['{tag}', '{tag}']}
+	whyItMatters="{one line}"
+	signals={{ hn: 312, hf: 41 }}
+	relatedUrls={['{url}', '{url}']}
+>
+	{120–180-word summary written from the primary source.}
+
+	**Key takeaways**
+
+	- {takeaway}
+	- {takeaway}
+	- {takeaway}
+</StoryCard>
+
+{ Then one `##` section per non-empty category, in this order: Papers, Releases, Community,
+  Press, Social — each selected item as a StoryCard like above. Omit empty sections. Omit
+  props that have no value (signals, relatedUrls). }

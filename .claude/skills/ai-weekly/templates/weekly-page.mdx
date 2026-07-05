@@ -1,0 +1,44 @@
+---
+title: AI Weekly — Week {ww}, {yyyy}
+description: { one-line description naming the biggest theme of the week }
+digest: weekly
+date: { YYYY-MM-DD of the week's Monday }
+tags: [{ union of the week's selected tags }]
+itemCount: { total items selected this week }
+topStory: { title of the #1 ranked item }
+sidebar:
+  label: Week {ww}, {yyyy}
+  order: -{yyyyww}
+---
+
+import StoryCard from '../../../components/StoryCard.astro';
+
+{ 2–3 sentence editorial summary of the week. }
+
+## Themes of the week
+
+### { Theme 1 heading }
+
+{ Paragraph of synthesis with inline links to the daily pages involved. }
+
+{ ...3–5 themes total... }
+
+## Top papers
+
+{ Top-5 papers as compact StoryCards — reuse summaries from selections files. }
+
+## Top news
+
+{ Top-5 news/releases as compact StoryCards. }
+
+## The week in numbers
+
+| Day | Reviewed | Selected |
+| --- | --- | --- |
+| { Mon D } | { n } | { n } |
+
+{ One line on category split and top tags. }
+
+## This week's dailies
+
+- [{Mon D, YYYY}](/newsletter/daily/{YYYY-MM-DD}/)
