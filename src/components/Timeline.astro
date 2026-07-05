@@ -1,0 +1,112 @@
+---
+import { withBase } from '../lib/url';
+
+export interface TimelineEntry {
+	date: Date;
+	title: string;
+	href: string;
+	digest: 'daily' | 'weekly';
+	itemCount?: number;
+	topStory?: string;
+}
+
+interface Props {
+	entries: TimelineEntry[];
+}
+
+const { entries } = Astro.props;
+
+const monthFmt = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const dayFmt = new Intl.DateTimeFormat('en', { weekday: 'short', day: 'numeric', timeZone: 'UTC' });
+
+const byMonth = new Map<string, TimelineEntry[]>();
+for (const entry of [...entries].sort((a, b) => b.date.getTime() - a.date.getTime())) {
+	const key = monthFmt.format(entry.date);
+	if (!byMonth.has(key)) byMonth.set(key, []);
+	byMonth.get(key)!.push(entry);
+}
+---
+
+<div class="timeline">
+	{
+		[...byMonth.entries()].map(([month, monthEntries]) => (
+			<section>
+				<h2>{month}</h2>
+				<ol>
+					{monthEntries.map((entry) => (
+						<li class:list={[entry.digest]}>
+							<span class="dot" aria-hidden="true" />
+							<div class="entry">
+								<span class="date">
+									{entry.digest === 'weekly' ? 'Week' : dayFmt.format(entry.date)}
+								</span>
+								<a href={withBase(entry.href)}>{entry.title}</a>
+								{typeof entry.itemCount === 'number' && (
+									<span class="count">{entry.itemCount} items</span>
+								)}
+								{entry.topStory && <p class="top-story">{entry.topStory}</p>}
+							</div>
+						</li>
+					))}
+				</ol>
+			</section>
+		))
+	}
+	{entries.length === 0 && <p>No digests yet — run <code>/ai-daily</code> to publish the first one.</p>}
+</div>
+
+<style>
+	.timeline h2 {
+		font-size: var(--sl-text-lg);
+		color: var(--sl-color-gray-2);
+	}
+	.timeline ol {
+		list-style: none;
+		margin: 1rem 0 2rem;
+		padding: 0;
+		border-inline-start: 2px solid var(--sl-color-gray-5);
+	}
+	.timeline li {
+		position: relative;
+		padding: 0 0 1.4rem 1.4rem;
+	}
+	.dot {
+		position: absolute;
+		left: -0.42rem;
+		top: 0.3rem;
+		width: 0.75rem;
+		height: 0.75rem;
+		border-radius: 50%;
+		background: var(--sl-color-accent);
+		border: 2px solid var(--sl-color-bg);
+	}
+	li.weekly .dot {
+		background: var(--cat-release);
+	}
+	.entry .date {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-inline-end: 0.6rem;
+	}
+	.entry a {
+		font-weight: 600;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.entry a:hover {
+		color: var(--sl-color-accent-high);
+		text-decoration: underline;
+	}
+	.count {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		margin-inline-start: 0.6rem;
+	}
+	.top-story {
+		margin: 0.3rem 0 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+	}
+</style>

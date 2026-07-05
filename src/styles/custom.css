@@ -1,0 +1,48 @@
+/* AI Daily — Starlight theme customization. */
+
+/* Accent palette (dark theme is Starlight's default :root). */
+:root {
+	--sl-color-accent-low: #2a1e5c;
+	--sl-color-accent: #7c6cf0;
+	--sl-color-accent-high: #c3baf7;
+
+	/* Category colors: paper / release / community / press / social. */
+	--cat-paper: #a5b4fc;
+	--cat-paper-bg: rgba(129, 140, 248, 0.16);
+	--cat-release: #6ee7b7;
+	--cat-release-bg: rgba(52, 211, 153, 0.14);
+	--cat-community: #fcd34d;
+	--cat-community-bg: rgba(251, 191, 36, 0.14);
+	--cat-press: #7dd3fc;
+	--cat-press-bg: rgba(56, 189, 248, 0.14);
+	--cat-social: #f9a8d4;
+	--cat-social-bg: rgba(244, 114, 182, 0.14);
+
+	--card-border: var(--sl-color-gray-5);
+	--card-bg: var(--sl-color-black);
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #e6e1fb;
+	--sl-color-accent: #5b4bd5;
+	--sl-color-accent-high: #362a8a;
+
+	--cat-paper: #4338ca;
+	--cat-paper-bg: #eef2ff;
+	--cat-release: #047857;
+	--cat-release-bg: #ecfdf5;
+	--cat-community: #b45309;
+	--cat-community-bg: #fffbeb;
+	--cat-press: #0369a1;
+	--cat-press-bg: #f0f9ff;
+	--cat-social: #be185d;
+	--cat-social-bg: #fdf2f8;
+
+	--card-border: var(--sl-color-gray-5);
+	--card-bg: var(--sl-color-gray-7, #f6f6f9);
+}
+
+/* Slightly tighter page titles on digest pages. */
+.sl-markdown-content h2 {
+	letter-spacing: -0.01em;
+}

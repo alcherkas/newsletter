@@ -1,0 +1,63 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../lib/url';
+
+const docs = await getCollection('docs', (doc) => Boolean(doc.data.digest));
+
+const counts = new Map<string, number>();
+for (const doc of docs) {
+	for (const tag of doc.data.tags ?? []) {
+		counts.set(tag, (counts.get(tag) ?? 0) + 1);
+	}
+}
+
+const tags = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+---
+
+<StarlightPage frontmatter={{ title: 'Tags', tableOfContents: false }}>
+	<p>Browse digests by topic.</p>
+	{
+		tags.length > 0 ? (
+			<ul class="tag-cloud">
+				{tags.map(([tag, count]) => (
+					<li>
+						<a href={withBase(`/tags/${tag}/`)}>
+							#{tag} <span class="count">{count}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		) : (
+			<p>No tags yet.</p>
+		)
+	}
+</StarlightPage>
+
+<style>
+	.tag-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+		list-style: none;
+		padding: 0;
+	}
+	.tag-cloud a {
+		display: inline-block;
+		padding: 0.35em 0.9em;
+		border-radius: 999px;
+		background: var(--sl-color-accent-low);
+		color: var(--sl-color-accent-high);
+		text-decoration: none;
+		font-size: var(--sl-text-sm);
+		font-weight: 500;
+	}
+	.tag-cloud a:hover {
+		background: var(--sl-color-accent);
+		color: var(--sl-color-black);
+	}
+	.count {
+		opacity: 0.7;
+		font-size: var(--sl-text-xs);
+	}
+</style>

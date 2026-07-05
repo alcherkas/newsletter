@@ -1,0 +1,48 @@
+---
+/**
+ * Landing-page block listing the latest day's selected stories.
+ * Reads data/latest.json — skills update that JSON, never the landing MDX.
+ */
+import SourceBadge from './SourceBadge.astro';
+import type { Category } from './SourceBadge.astro';
+import { withBase } from '../lib/url';
+import latest from '../../data/latest.json';
+---
+
+{
+	latest.items?.length > 0 && (
+		<ul class="latest-digest">
+			{latest.items.map((item) => (
+				<li>
+					<SourceBadge category={item.category as Category} />
+					<a href={withBase(latest.pagePath)}>{item.title}</a>
+				</li>
+			))}
+		</ul>
+	)
+}
+
+<style>
+	.latest-digest {
+		list-style: none;
+		padding: 0;
+		margin: 1rem 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+	.latest-digest li {
+		display: flex;
+		align-items: baseline;
+		gap: 0.7rem;
+	}
+	.latest-digest a {
+		color: var(--sl-color-white);
+		text-decoration: none;
+		font-size: var(--sl-text-sm);
+	}
+	.latest-digest a:hover {
+		color: var(--sl-color-accent-high);
+		text-decoration: underline;
+	}
+</style>

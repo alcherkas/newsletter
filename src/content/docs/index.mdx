@@ -1,0 +1,36 @@
+---
+title: AI Daily
+description: A curated daily digest of AI research, model releases, and news — hand-picked every day, compiled weekly.
+template: splash
+hero:
+  title: AI Daily
+  tagline: Papers, releases, community signal, and news — swept from every major AI source, curated by hand, published daily.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import LatestDigest from '../../components/LatestDigest.astro';
+
+## In the latest digest
+
+<LatestDigest />
+
+## How it works
+
+<CardGrid>
+	<Card title="Swept daily" icon="magnifier">
+		arXiv, Hugging Face Daily Papers, lab blogs, Hacker News, Reddit, newsletters, tech press,
+		and notable X posts — every day, deduplicated and scored.
+	</Card>
+	<Card title="Curated by hand" icon="approve-check">
+		Nothing publishes automatically. Every story is reviewed and selected before it gets a
+		write-up.
+	</Card>
+	<Card title="Compiled weekly" icon="calendar">
+		Each week the dailies are synthesized into themes, top papers, and top news — see the
+		weekly recaps.
+	</Card>
+	<Card title="Fully searchable" icon="open-book">
+		Every digest is indexed — search from the top bar, browse the archive timeline, or filter
+		by tag.
+	</Card>
+</CardGrid>

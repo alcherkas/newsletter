@@ -1,0 +1,54 @@
+---
+export type Category = 'paper' | 'release' | 'community' | 'press' | 'social';
+
+interface Props {
+	category: Category;
+	/** Optional custom text, e.g. the concrete source ("arXiv", "OpenAI"). */
+	label?: string;
+}
+
+const { category, label } = Astro.props;
+
+const names: Record<Category, string> = {
+	paper: 'Paper',
+	release: 'Release',
+	community: 'Community',
+	press: 'Press',
+	social: 'Social',
+};
+---
+
+<span class:list={['source-badge', `cat-${category}`]}>{label ?? names[category]}</span>
+
+<style>
+	.source-badge {
+		display: inline-block;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		line-height: 1;
+		padding: 0.3em 0.65em;
+		border-radius: 999px;
+		white-space: nowrap;
+		letter-spacing: 0.02em;
+	}
+	.cat-paper {
+		color: var(--cat-paper);
+		background: var(--cat-paper-bg);
+	}
+	.cat-release {
+		color: var(--cat-release);
+		background: var(--cat-release-bg);
+	}
+	.cat-community {
+		color: var(--cat-community);
+		background: var(--cat-community-bg);
+	}
+	.cat-press {
+		color: var(--cat-press);
+		background: var(--cat-press-bg);
+	}
+	.cat-social {
+		color: var(--cat-social);
+		background: var(--cat-social-bg);
+	}
+</style>

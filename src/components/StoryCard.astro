@@ -1,0 +1,113 @@
+---
+import SourceBadge from './SourceBadge.astro';
+import type { Category } from './SourceBadge.astro';
+import TagList from './TagList.astro';
+
+interface Props {
+	title: string;
+	url: string;
+	category: Category;
+	/** Concrete source label shown in the badge, e.g. "arXiv", "OpenAI". */
+	source?: string;
+	tags?: string[];
+	whyItMatters?: string;
+	/** Popularity signals, rendered muted: { hn: 312, hf: 41, reddit: 95 } */
+	signals?: Partial<Record<'hn' | 'hf' | 'reddit', number>>;
+	relatedUrls?: string[];
+}
+
+const { title, url, category, source, tags = [], whyItMatters, signals = {}, relatedUrls = [] } = Astro.props;
+
+const signalLabels: Record<string, string> = { hn: 'HN', hf: 'HF', reddit: 'Reddit' };
+const signalParts = Object.entries(signals)
+	.filter(([, v]) => typeof v === 'number')
+	.map(([k, v]) => `▲ ${v} ${signalLabels[k] ?? k}`);
+---
+
+<article class="story-card">
+	<header>
+		<div class="meta">
+			<SourceBadge {category} label={source} />
+			{signalParts.length > 0 && <span class="signals">{signalParts.join(' · ')}</span>}
+		</div>
+		<h3><a href={url}>{title}</a></h3>
+	</header>
+	{whyItMatters && <p class="why">{whyItMatters}</p>}
+	<div class="body">
+		<slot />
+	</div>
+	<footer>
+		<TagList {tags} />
+		{
+			relatedUrls.length > 0 && (
+				<p class="related">
+					Also covered:{' '}
+					{relatedUrls.map((r, i) => (
+						<>
+							{i > 0 && ' · '}
+							<a href={r}>{new URL(r).hostname.replace(/^www\./, '')}</a>
+						</>
+					))}
+				</p>
+			)
+		}
+	</footer>
+</article>
+
+<style>
+	.story-card {
+		border: 1px solid var(--card-border);
+		border-radius: 0.75rem;
+		background: var(--card-bg);
+		padding: 1.1rem 1.25rem;
+		margin-top: 1.25rem;
+	}
+	.meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+	.signals {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+	.story-card h3 {
+		margin-top: 0.5rem;
+		font-size: var(--sl-text-lg);
+		line-height: 1.35;
+	}
+	.story-card h3 a {
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.story-card h3 a:hover {
+		color: var(--sl-color-accent-high);
+		text-decoration: underline;
+	}
+	.why {
+		margin-top: 0.6rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-accent-high);
+		font-weight: 500;
+		border-inline-start: 3px solid var(--sl-color-accent);
+		padding-inline-start: 0.6rem;
+	}
+	.body {
+		font-size: var(--sl-text-sm);
+	}
+	.body :global(p:first-child) {
+		margin-top: 0.6rem;
+	}
+	footer {
+		margin-top: 0.9rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.related {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+		margin: 0;
+	}
+</style>

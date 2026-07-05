@@ -1,0 +1,21 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+import Timeline from '../components/Timeline.astro';
+
+const docs = await getCollection('docs', (doc) => Boolean(doc.data.digest && doc.data.date));
+
+const entries = docs.map((doc) => ({
+	date: doc.data.date!,
+	title: doc.data.title,
+	href: `/${doc.id}/`,
+	digest: doc.data.digest!,
+	itemCount: doc.data.itemCount,
+	topStory: doc.data.topStory,
+}));
+---
+
+<StarlightPage frontmatter={{ title: 'Archive', tableOfContents: false }}>
+	<p>Every daily digest and weekly recap, newest first.</p>
+	<Timeline {entries} />
+</StarlightPage>

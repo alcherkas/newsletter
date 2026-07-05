@@ -1,0 +1,69 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../lib/url';
+
+export async function getStaticPaths() {
+	const docs = await getCollection('docs', (doc) => Boolean(doc.data.digest));
+	const tags = new Set<string>(docs.flatMap((doc) => doc.data.tags ?? []));
+	return [...tags].map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+
+const docs = await getCollection('docs', (doc) =>
+	Boolean(doc.data.digest && (doc.data.tags ?? []).includes(tag))
+);
+
+const pages = docs
+	.map((doc) => ({
+		title: doc.data.title,
+		href: `/${doc.id}/`,
+		date: doc.data.date,
+		digest: doc.data.digest,
+	}))
+	.sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
+
+const dateFmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' });
+---
+
+<StarlightPage frontmatter={{ title: `#${tag}`, tableOfContents: false }}>
+	<p>
+		Digests tagged <strong>#{tag}</strong> — <a href={withBase('/tags/')}>all tags</a>.
+	</p>
+	<ul class="tagged-pages">
+		{
+			pages.map((page) => (
+				<li>
+					<span class="date">{page.date ? dateFmt.format(page.date) : ''}</span>
+					<a href={withBase(page.href)}>{page.title}</a>
+				</li>
+			))
+		}
+	</ul>
+</StarlightPage>
+
+<style>
+	.tagged-pages {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+	}
+	.date {
+		display: inline-block;
+		min-width: 7.5rem;
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-3);
+	}
+	.tagged-pages a {
+		font-weight: 500;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.tagged-pages a:hover {
+		color: var(--sl-color-accent-high);
+		text-decoration: underline;
+	}
+</style>

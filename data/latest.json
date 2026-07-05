@@ -1,0 +1,16 @@
+{
+  "date": "2026-07-04",
+  "pagePath": "/daily/2026-07-04/",
+  "topStory": {
+    "title": "Sample release — how a top story looks",
+    "whyItMatters": "This is a seed entry demonstrating the hero panel. It will be replaced by the first real /ai-daily run.",
+    "category": "release"
+  },
+  "stats": { "candidates": 38, "selected": 3 },
+  "items": [
+    { "title": "Sample release — how a top story looks", "category": "release" },
+    { "title": "Sample paper — how paper write-ups look", "category": "paper" },
+    { "title": "Sample community story — discussion and open-source signal", "category": "community" }
+  ],
+  "weekly": null
+}

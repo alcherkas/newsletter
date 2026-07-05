@@ -1,0 +1,76 @@
+---
+title: AI Daily — July 4, 2026
+description: Seed digest demonstrating the daily page layout — replaced by real digests.
+digest: daily
+date: 2026-07-04
+tags: [llm, agents, open-weights]
+itemCount: 3
+topStory: This is a seed page demonstrating the daily digest layout.
+sidebar:
+  label: Jul 4, 2026
+  order: -20260704
+---
+
+import StoryCard from '../../../components/StoryCard.astro';
+
+:::note[Seed page]
+This is a sample digest that demonstrates the layout. It will be replaced by real content on
+the first `/ai-daily` run.
+:::
+
+## Top story
+
+<StoryCard
+	title="Sample release — how a top story looks"
+	url="https://example.com/release"
+	category="release"
+	source="Example Lab"
+	tags={['llm', 'agents']}
+	whyItMatters="One line on why this story earned the top slot — the single thing to remember if you read nothing else."
+	signals={{ hn: 312 }}
+	relatedUrls={['https://news.ycombinator.com/', 'https://techcrunch.com/']}
+>
+	A 120–180-word summary of the story goes here as the card body. It explains what shipped or
+	what was found, the concrete numbers or capabilities involved, and the immediate context —
+	written from the primary source, not from headlines.
+
+	**Key takeaways**
+
+	- First concrete takeaway a practitioner would care about
+	- Second takeaway — a number, benchmark, or capability claim
+	- Third takeaway — a caveat or open question
+</StoryCard>
+
+## Papers
+
+<StoryCard
+	title="Sample paper — how paper write-ups look"
+	url="https://arxiv.org/abs/0000.00000"
+	category="paper"
+	source="arXiv"
+	tags={['llm']}
+	whyItMatters="Papers get the same treatment: what the result is and why it moves the field."
+	signals={{ hf: 41 }}
+>
+	Summary of the paper's contribution, method, and headline results. Authors and affiliations
+	are mentioned when notable.
+
+	**Key takeaways**
+
+	- Main result with the key metric
+	- What it means in practice
+</StoryCard>
+
+## Community
+
+<StoryCard
+	title="Sample community story — discussion and open-source signal"
+	url="https://example.com/discussion"
+	category="community"
+	source="Hacker News"
+	tags={['open-weights']}
+	whyItMatters="Community items capture what practitioners are actually talking about."
+	signals={{ hn: 95, reddit: 210 }}
+>
+	Summary of the discussion or open-source project and the strongest points raised.
+</StoryCard>

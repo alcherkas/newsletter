@@ -1,0 +1,15 @@
+{
+  "feeds": [
+    { "id": "openai", "label": "OpenAI News", "url": "https://openai.com/news/rss.xml", "category": "release" },
+    { "id": "deepmind", "label": "Google DeepMind", "url": "https://deepmind.google/blog/rss.xml", "category": "release", "note": "items may be unsorted — fetcher sorts by pubDate" },
+    { "id": "google-ai", "label": "Google AI Blog", "url": "https://blog.google/technology/ai/rss/", "category": "release" },
+    { "id": "hf-blog", "label": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml", "category": "release" },
+    { "id": "bair", "label": "BAIR Blog", "url": "https://bair.berkeley.edu/blog/feed.xml", "category": "paper" },
+    { "id": "simonwillison", "label": "Simon Willison", "url": "https://simonwillison.net/atom/everything/", "category": "press" },
+    { "id": "importai", "label": "Import AI", "url": "https://importai.substack.com/feed", "category": "press" },
+    { "id": "techcrunch-ai", "label": "TechCrunch AI", "url": "https://techcrunch.com/category/artificial-intelligence/feed/", "category": "press" },
+    { "id": "tldr-ai", "label": "TLDR AI", "url": "https://tldr.tech/api/rss/ai", "category": "press" },
+    { "id": "verge", "label": "The Verge", "url": "https://www.theverge.com/rss/index.xml", "category": "press", "optional": true },
+    { "id": "ars-ai", "label": "Ars Technica AI", "url": "https://arstechnica.com/ai/feed/", "category": "press", "optional": true }
+  ]
+}
