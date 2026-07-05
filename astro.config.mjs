@@ -5,14 +5,14 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://alcherkas.github.io',
-	base: '/ai-daily',
+	base: '/newsletter',
 	integrations: [
 		starlight({
 			title: 'AI Daily',
 			description:
 				'A curated daily digest of AI research, model releases, and news — papers, lab announcements, community signal, and press, hand-picked every day.',
 			social: [
-				{ icon: 'github', label: 'GitHub', href: 'https://github.com/alcherkas/ai-daily' },
+				{ icon: 'github', label: 'GitHub', href: 'https://github.com/alcherkas/newsletter' },
 			],
 			customCss: ['./src/styles/custom.css'],
 			components: {
